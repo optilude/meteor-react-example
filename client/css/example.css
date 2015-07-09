@@ -1,0 +1,71 @@
+body {
+    padding-top: 50px;
+}
+
+/*
+ * Loading indicator
+ */
+
+.please-wait .modal.in {
+    position: inherit;
+}
+
+/*
+ * Login page
+ */
+
+.form-signin {
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+
+.form-signin .form-signin-heading {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-signin .form-control {
+    position: relative;
+    /*height: auto;*/
+    -webkit-box-sizing: border-box;
+       -moz-box-sizing: border-box;
+            box-sizing: border-box;
+    padding: 10px;
+    font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+    z-index: 2;
+}
+
+.form-signin .form-group {
+    margin-bottom: 5px;
+}
+
+.form-signin select {
+    margin-bottom: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.form-signin .form-group {
+    margin-top: 10px;
+    text-align: right;
+}
+
+/*
+ * Home page
+ */
+
+.home-page {
+    padding-top: 20px;
+}
+
+/*
+ * User admin page
+ */
+.accounts-search {
+    margin-top: 50px;
+}
