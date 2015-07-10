@@ -1,6 +1,5 @@
 /* global Meteor, Dependencies, Match, check, Roles, Accounts */
 "use strict";
-(function() {
 
 Meteor.methods({
 
@@ -29,6 +28,3 @@ Meteor.methods({
     }
 
 });
-
-
-})();

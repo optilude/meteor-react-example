@@ -1,7 +1,6 @@
 /* jshint esnext:true */
 /* global Meteor, Dependencies, Components, Collections, React, ReactMeteorData, Roles */
 "use strict";
-(function(NS) {
 var { _, moment, bootbox, ReactBootstrap } = Dependencies;
 var { Button, ButtonToolbar } = ReactBootstrap;
 
@@ -79,7 +78,7 @@ var Clock = React.createClass({
         }, 500);
     },
 
-    componetWillUnmount: function() {
+    componentWillUnmount: function() {
         clearInterval(this.timer);
     },
 
@@ -169,6 +168,4 @@ var ClearButton = React.createClass({
 
 // Expose to other components as `Components.Timestamps`
 
-_.extend(NS, { Timestamps });
-
-})(Components);
+_.extend(Components, { Timestamps });

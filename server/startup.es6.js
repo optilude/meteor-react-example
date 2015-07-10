@@ -1,7 +1,6 @@
 /* jshint esnext:true */
 /* global Meteor, Dependencies, Roles, Accounts, Utils */
 "use strict";
-(function() {
 
 var { _ } = Dependencies;
 
@@ -57,5 +56,3 @@ Meteor.startup(function () {
         Roles.addUsersToRoles(userId, ['admin']);
     }
 });
-
-})();

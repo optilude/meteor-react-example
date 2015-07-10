@@ -1,7 +1,6 @@
 /* jshint esnext:true */
 /* global Meteor, Dependencies, Components, React */
 "use strict";
-(function(NS) {
 var { _, ReactBootstrap } = Dependencies;
 var { Modal, ProgressBar } = ReactBootstrap;
 
@@ -32,6 +31,4 @@ var Loading = React.createClass({
 
 // Expose to other components as `Components.Loading`
 
-_.extend(NS, { Loading });
-
-})(Components);
+_.extend(Components, { Loading });

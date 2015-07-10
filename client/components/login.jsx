@@ -1,7 +1,6 @@
 /* jshint esnext:true */
 /* global Meteor, Dependencies, Components, React, Accounts */
 "use strict";
-(function(NS) {
 var { _, Router, ReactBootstrap } = Dependencies;
 var { Alert, Input, Button } = ReactBootstrap;
 var { Link } = Router;
@@ -244,6 +243,4 @@ var ChangePassword = React.createClass({
 
 });
 
-_.extend(NS, { Login, ResetPassword, EnrollAccount, ChangePassword });
-
-})(Components);
+_.extend(Components, { Login, ResetPassword, EnrollAccount, ChangePassword });

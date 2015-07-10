@@ -1,7 +1,6 @@
 /* jshint esnext:true */
 /* global Meteor, Dependencies, Components, React */
 "use strict";
-(function(NS) {
 var { _, Router } = Dependencies;
 var { Link } = Router;
 
@@ -27,6 +26,4 @@ var Home = React.createClass({
 
 // Expose to other components as `Components.NS`
 
-_.extend(NS, { Home });
-
-})(Components);
+_.extend(Components, { Home });

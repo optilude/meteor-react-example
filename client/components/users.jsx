@@ -1,7 +1,6 @@
 /* jshint esnext: true */
 /* global Meteor, Dependencies, Components, React, Blaze, Template */
 "use strict";
-(function(NS) {
 var { _, Router, ReactBootstrap } = Dependencies;
 var { Link } = Router;
 var { Alert, Input, Button } = ReactBootstrap;
@@ -118,6 +117,4 @@ var CreateUser = React.createClass({
 
 // Expose components under the `Components` namespace
 
-_.extend(NS, { AdminUsers, CreateUser, ManageUsers });
-
-})(Components);
+_.extend(Components, { AdminUsers, CreateUser, ManageUsers });

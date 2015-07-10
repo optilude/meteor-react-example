@@ -1,7 +1,6 @@
 /* jshint esnext:true */
 /* global Meteor, Dependencies, Components, React, ReactMeteorData, Roles */
 "use strict";
-(function(NS) {
 var { _, ReactBootstrap, ReactRouterBootstrap, Router, moment } = Dependencies;
 var { Navbar, CollapsibleNav, Nav, NavItem, DropdownButton, MenuItem } = ReactBootstrap;
 var { Link } = Router;
@@ -60,6 +59,4 @@ var TopNav = React.createClass({
 
 // Expose as `Components.TopNav`
 
-_.extend(NS, { TopNav });
-
-})(Components);
+_.extend(Components, { TopNav });
