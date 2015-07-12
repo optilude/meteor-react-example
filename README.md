@@ -10,8 +10,9 @@ demonstrates:
 * A basic UI using `Twitter Bootstrap` and `ReactBootstrap`
 * Login, change password, enrollment emails and user management using the Meteor
   accounts system
-* ES6 syntax using the `Babel` transpiler (`.es6.js` files) and ReactJS'
+* ES6 syntax using the `Babel` transpiler (`.import.js` files) and ReactJS'
   transpiler (`.jsx` files)
+* ES6 modules using `universe:modules`
 * Tests using `Velocity`.
 * Typed collections / validation using `aldeed:collection2`.
 * Client- and server-side dependencies loaded from NPM and served with
@@ -21,9 +22,10 @@ demonstrates:
 
 The app is very simple: it shows a ticking clock and allows the user to record
 a timestamp with a name. Most of the sample app-specific logic can be found
-in `client/components/timestamps.jsx` and `lib/models.es6.js`, with references
-from `client/components/app.jsx`, `client/components/navigation.jsx`,
-`client/js/routing.jsx` and `client/css/example.css`.
+in `client/components/timestamps.import.jsx` and `lib/models.import.js`, with
+references from `client/components/app.import.jsx`,
+`client/components/navigation.import.jsx`, `client/js/routing.import.jsx` and
+`client/css/example.css`.
 
 The various files have comments explaining their purpose and logic. At a high
 level:
@@ -59,36 +61,32 @@ In this example, we have taken the following approach:
   built to create a bundle that can be sent to the client. In the file
   `client.browserify.js` (plus some relevant options in
   `client.browserify.options.json`), we `require` the relevant modules and
-  put them into a global object called `Dependencies`. This is then exposed
-  to the client-side Meteor app via some configuration in `package.js`. We do
-  something similar for server-side dependencies in `server.js` in the package.
+  put them into a global object called `Dependencies`. We do something similar
+  for server-side dependencies in `server.js` in the package.
+* Dependencies are then exported using magic provided by `universe:modules`.
+  The `main.export.jsx` file declares the exports, and the `system-config.js`
+  file allows imports like:
 
-This gives us a way to access NPM-published dependencies via the `Dependencies`
-object.
+      import { _, Router } from 'app-deps';
 
-The next problem is how to share components across files and keep file lenghts
-manageable, without too great a dependency on the load order of scripts.
+We also use `universe:modules` to allow ES6 module syntax in app code. Almost
+all app-specific files are named with `.import.jsx` or `.import.js` syntax.
+Within these files, we can use syntax like:
 
-To address this, we export specific variables under a limited number of global
-"namespace" objects. We define these in `lib/_namespaces.es6.js`. By living in
-`lib/` and having an early-sort name, we know it will load "early" and so its
-objects should be defined in any other file where we use it:
+    import Loading from 'client/components/loading';
 
-    /* global Collections: true, Components: true, Utils: true */
-    Collections = {};
-    Components = {};
-    Utils = {};
-
-We then use these to export objects. For example, in
-`client/components/loading.jsx`:
+In `loading.import.jsx`, we have:
 
     /* jshint esnext:true */
-    /* global Meteor, Dependencies, Components, React */
+    /* global Meteor, React */
+
     "use strict";
-    var { _, ReactBootstrap } = Dependencies;
+
+    import { _, ReactBootstrap } from 'app-deps';
+
     var { Modal, ProgressBar } = ReactBootstrap;
 
-    var Loading = React.createClass({
+    export default React.createClass({
         displayName: 'Loading',
 
         render: function() {
@@ -110,51 +108,28 @@ We then use these to export objects. For example, in
 
     });
 
-    _.extend(Components, { Loading });
+To kick it all off, we have `client/main.js`:
 
-We use `_.extend()` from lodash/underscore to expose the `Loading` component
-as `Components.Loading`. Any other variables will not be referenceable in other
-files.
+    /* jshint: esnext: true */
+    /* global System */
+    "use strict";
 
-At the top of the block, we import objects from the global `Dependencies`
-object, here using fancy ES6 "destructuring" syntax. We also use ES6 syntax
-in the `_.extend()` call.
+    System.import('client/routing');
 
-In other components, we can do e.g.:
+This loads `client/routing.import.jsx`, from which all other components are
+imported.
 
-    var Timestamps = React.createClass({
-        displayName: 'Timestamps',
-        mixins: [ReactMeteorData],
+Similarly, for server-side code, we have `server/main.js`:
 
-        getMeteorData: function() {
-            var user = Meteor.user();
-            var subscriptionHandle = Meteor.subscribe("timestamps");
+    /* jshint: esnext: true */
+    /* global System */
+    "use strict";
 
-            return {
-                loading: !subscriptionHandle.ready(),
-                timestamps: Collections.Timestamps.find().fetch(),
-                canWrite: user? Roles.userIsInRole(user, ['write', 'admin']) : false,
-            };
-        },
+    System.import('server/startup');
 
-        render: function() {
-            var { Loading } = Components;
+And at the top of `server/startup.import.js`:
 
-            if(this.data.loading) {
-                return <Loading />;
-            }
+    import 'lib/models';
+    import 'server/admin';
 
-            return (
-                // ...
-            );
-        }
-    });
-
-Note that here we import `Loading` from `Components` inside the `render()`
-function rather than globally. That is because whilst we can be pretty sure
-all of the namespaces and the `Dependencies` object are loaded "early", we
-don't want to rely on the load order of the scripts that add objects to
-`Components` and so we don't want to use it on load.
-
-It is likely that in a future release of Meteor, there will be an easier way
-to do this, presumably using ES6 module syntax.
+This ensures that "global" code in these modules is run on startup.

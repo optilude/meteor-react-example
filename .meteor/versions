@@ -23,7 +23,6 @@ ejson@1.0.6
 email@1.0.6
 fastclick@1.0.3
 geojson-utils@1.0.3
-grigio:babel@0.1.4
 html-tools@1.0.4
 htmljs@1.0.4
 http@1.1.0
@@ -77,6 +76,7 @@ tracker@1.0.7
 twbs:bootstrap@3.3.4
 ui@1.0.6
 underscore@1.0.3
+universe:modules@0.2.0
 url@1.0.4
 velocity:chokidar@1.0.1_1
 velocity:core@0.6.5

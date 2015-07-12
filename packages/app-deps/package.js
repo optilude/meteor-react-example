@@ -23,10 +23,6 @@ Npm.depends({
     "bootbox": "4.4.0",
 });
 
-
-// This magic exposes the `Dependencies` object from `client.browserify.js` to
-// the client and the one from `server.js` to the server.
-
 // Note specific package versions embedded below as well.
 
 Package.onUse(function(api) {
@@ -36,12 +32,22 @@ Package.onUse(function(api) {
         'react@0.1.0',
     ], 'client');
 
+    api.use([
+        'universe:modules@0.2.0',
+    ]);
+
     api.addFiles([
         'client.browserify.js',
         'client.browserify.options.json'
     ], 'client');
-    api.addFiles(['server.js'], 'server');
 
-    api.export('Dependencies', 'client');
-    api.export('Dependencies', 'server');
+    api.addFiles([
+        'server.js',
+    ], 'server');
+
+    api.addFiles([
+        'main.import.jsx',
+        'system-config.js'
+    ]);
+
 });
