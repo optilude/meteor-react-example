@@ -19,6 +19,7 @@ Npm.depends({
     "react-router": "0.13.3",
     "react-router-bootstrap": "0.16.0",
     "exposify": "0.4.3",
+    "externalify": "0.1.0",
     "lodash": "3.10.0",
     "bootbox": "4.4.0",
 });
@@ -26,14 +27,14 @@ Npm.depends({
 // Note specific package versions embedded below as well.
 
 Package.onUse(function(api) {
-    api.versionsFrom('1.1.0.2');
+    api.versionsFrom('1.1.0.3');
     api.use([
         'cosmos:browserify@0.4.0',
-        'react@0.1.0',
+        'react@0.1.7',
     ], 'client');
 
     api.use([
-        'universe:modules@0.2.0',
+        'universe:modules@0.4.1',
     ]);
 
     api.addFiles([

@@ -1,7 +1,13 @@
 /* global System */
 
 System.config({
-    map: {
-        'app-deps': 'app-deps/main'
+    packages: {
+        'app-deps': {
+            main: 'main',
+            format: 'register',
+            map: {
+                '.': System.normalizeSync('{app-deps}')
+            }
+        }
     }
 });
