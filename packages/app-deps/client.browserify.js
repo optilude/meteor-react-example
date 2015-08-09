@@ -1,4 +1,4 @@
-/* global require, Dependencies:true */
+/* global require, Dependencies:true, global, React */
 
 // Import client-side npm modules and put them into the Dependencies object.
 // We can then access `Dependences` elsewhere in client-side code to use
@@ -8,6 +8,8 @@
 // browserify to shim `require(react)` with the `React` global exposed by
 // the `react` meteor package. We also do the same for jQuery, which ships
 // with Meteor.
+
+global.React = React;
 
 Dependencies = {
     _: require('lodash'),
