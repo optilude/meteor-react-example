@@ -9,6 +9,8 @@
 // the `react` meteor package. We also do the same for jQuery, which ships
 // with Meteor.
 
+// This hack makes the `exposify` shim work for react. May be obsolete at
+// some point. See https://github.com/meteor/react-packages/issues/83.
 global.React = React;
 
 Dependencies = {
